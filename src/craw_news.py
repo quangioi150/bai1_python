@@ -1,14 +1,10 @@
-import json
-import psycopg2
+import time
+
 import requests
 from bs4 import BeautifulSoup
-import time
 
 
 class CrawArticle(object):
-    def __init__(self, url: str):
-        pass
-
     def get_title(self) -> str:
         list_article = []
         for i in range(1, 30):
@@ -34,6 +30,7 @@ class CrawArticle(object):
                         h1_title = h1_title.text
                         description = description.text
                         print(f"Title{index}: ", h1_title)
+                        print(f"Description{index}: ", description)
                         article = {"title": h1_title, "description": description}
                         list_article.append(article)
             print(list_article)
@@ -56,9 +53,9 @@ class CrawArticle(object):
         comments = self.get_comments()
         print(title, description, comments)
 
+
 if __name__ == '__main__':
-    news = 1
-    data = CrawArticle(news)
+    data = CrawArticle()
     start_time = time.time()
     data.craw()
     print("--- %s seconds ---" % (time.time() - start_time))
